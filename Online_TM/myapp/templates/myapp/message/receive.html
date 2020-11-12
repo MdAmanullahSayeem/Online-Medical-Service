@@ -1,0 +1,54 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9"></div>
+        <div class="col-sm-3">
+            {% if not bus %}
+
+            <div style="background-color:SkyBlue;height:300px">
+                <h3>Inbox is Empty</h3>
+                <a href="{% url 'msg_sender'%}"> Start Here</a>
+            </div>
+
+            {% else %}
+            <div style="background-color:SkyBlue;height:400px;overflow:scroll;">
+
+            {% for msg in bus %}
+
+
+            <a href="/myapp/message/messenger/a?pk={{ msg.sender.pk }}">
+                <div style=" color:#000000;padding:5px;">
+                    <b>{{ msg.sender}}</b>
+                    <br>
+                    {% if msg.read == 0  %}
+                    <b>{{ msg.message}}</b>
+                    {% if msg.file %}
+                    <b>sent a file</b>
+                    {% elif msg.pic %}
+                    <b>sent a Pic</b>
+                    {% endif %}
+                    {% else %}
+                    {{ msg.message}}
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor%}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+<style>
+
+</style>
+
+{% endblock %}
+

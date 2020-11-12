@@ -1,0 +1,33 @@
+{% extends 'myapp/base.html'%}
+{% block content %}
+
+{% if query %}
+<div style="padding-left:12px">
+ <div class="row" style="text-align:center; background-color:GhostWhite; height:50px">
+    <div class="col-sm-1">Name</div>
+    <div class="col-sm-2">Specialist</div>
+    <div class="col-sm-1"> Degree </div>
+    <div class="col-sm-1"> Title </div>
+    <div class="col-sm-1"> Description</div>
+ </div>
+
+ <div class="row" style="padding-top:15px;padding-button:15px;text-align:center; background-color:Khaki;height:70px">
+    <div class="col-sm-1">{{query.user}}</div>
+    <div class="col-sm-2"> {{query.specialist}}</div>
+    <div class="col-sm-1"> {{query.degree}} </div>
+    <div class="col-sm-1"> {{query.title}} </div>
+    <div class="col-sm-1"> {{query.description}}</div>
+
+</div>
+    {% if user.account.role == 'AD'%}
+    <div>
+        <button class="btn-btn-primary"style="float:right"><a href="{% url 'qualification_update' %}">Update</a> </button>
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<h3 style="text-align:center">No data</h3>
+    <button><a href="{% url 'qualification_create' %}">ADD</a> </button>
+{% endif %}
+
+{% endblock %}

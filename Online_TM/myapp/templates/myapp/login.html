@@ -1,0 +1,47 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+{% block body %}
+    <!--
+    Add a single form to a page by including {\% include "singleform.html" \%}. (Remove escape characters \)
+
+    Make sure in the render call, you pass a form call 'form', and a button called 'form_button'.
+-->
+<div class="container-fluid">
+    <div class="row"">
+
+        <div class="col-sm-3" style=""> </div>
+        <div class="col-sm-6" style="background-color:SkyBlue;height:300px;overflow:auto;">
+
+            <form class="form-horizontal" style=";" action="./{% if form_action %}{{ form_action }}{% endif %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div style="padding-left:20%">
+
+
+                        {% for field in form %}
+                            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                                <label>{{ field.label }}</label>
+                                <div>
+                                        {{ field }}
+                                    {{ field.errors }}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                </div>
+
+                <input class="btn btn-primary col-sm-12" type="submit" value="{{ form_button }}" />
+                <a href="{% url 'register' %}"> Are you not SignUp?</a> | <a href="{% url 'set_view' %}">Forget Your Password?</a>
+            </form>
+
+        </div>
+        <div class="col-sm-3" style=""> </div>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
+{% endblock %}

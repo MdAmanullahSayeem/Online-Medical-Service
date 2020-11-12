@@ -1,0 +1,56 @@
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+<div style="text-align:center">
+    <b style="font-size:7">Online Treatment Management</b><br>
+    <a style="font-size:4;" href="mailto:{{data.doctor.email}}">Dr.{{ data.doctor}}</a>
+</div>
+    <div style="margin-top:40px">
+        <table >
+            <tr>
+                <th>P. Name: </th>
+                <td>{{data.patient}}</td>
+            </tr>
+
+            <tr>
+                <th>Age: </th>
+                <td>{{data.age}}</td>
+
+            </tr>
+
+            <tr>
+                <th>Date: </th>
+                <td>{{data.date}}</td>
+
+
+            </tr>
+
+            <tr>
+                <th>Medications </th>
+                <td>{{data.medications}}</td>
+
+            </tr>
+
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+
+
+<div class="row"style="background-color:">
+
+    <div class="col-sm-7"> </div>
+    <div class="col-sm-5" style="background-color:Coral;">
+
+        <div class="row" style="">
+            <div class="col-sm-4" style="background-color:;">
+                Username <br>
+                Email <br>
+                Age <br>
+                Sex <br>
+                Phone <br>
+                Account Type <br>
+            </div>
+
+
+             <div class="col-sm-4"style="background-color:;color:;">
+                 {{ user.account.user.username}}<br>
+                 {{ user.account.user.email }}<br>
+                 {{ user.account.profile.age }}<br>
+                 {{ user.account.profile.sex }}<br>
+                 {{ user.account.profile.phone }}<br>
+                 {{ user.account.role }}<br>
+
+            </div>
+            <div class="col-sm-4">
+{% if user.account.profile.pic %}
+            <a href=""> <img src="{{ user.account.profile.pic.url }}" alt="abc" width="100%" height="80%"></a>
+                {% endif %}
+                <a style="padding-left:40%;" href="{% url 'edit_pic' %}">Edit</a>
+
+            </div>
+
+
+
+
+        </div>
+
+        <div style="padding-left:50%;padding-top:10%;">
+            <a  style="color:DarkBlue;" href="{%url 'edit_profile' %}">Edit Profile</a> | <a  style="color:Blue;" href="{%url 'password' %}">Change Password</a>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+<style>
+
+</style>
+{% endblock %}

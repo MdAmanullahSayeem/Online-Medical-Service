@@ -1,0 +1,61 @@
+{% extends 'myapp/base.html'%}
+{% block content %}
+
+{% if query %}
+<div style="padding-left:12px">
+ <div class="row" style="text-align:center; background-color:GhostWhite; height:50px">
+    <div class="col-sm-1">Name</div>
+    <div class="col-sm-2">Test Report</div>
+    <div class="col-sm-1"> Diabetic </div>
+    <div class="col-sm-1"> Allergy </div>
+    <div class="col-sm-1"> Fiver</div>
+    <div class="col-sm-1">Headache</div>
+    <div class="col-sm-1">Caff</div>
+    <div class="col-sm-1">Painful</div>
+    <div class="col-sm-2">Description(Body)</div>
+    <div class="col-sm-1">comment</div>
+
+ </div>
+
+ <div class="row" style="padding-top:15px;padding-button:15px;text-align:center; background-color:Khaki;height:70px">
+    <div class="col-sm-1">{{query.user}}</div>
+    <div class="col-sm-2">
+
+       {% if query.T_report %}
+
+           <a href="/myapp/download{{query.T_report.url}}/"><h5>Pdf</h5></a>
+        {% if user.account.role != 'DOC'%}
+           <div>
+               <a href="{% url 't_report' %}">Update</a>|<a href="/myapp/user/profile/health/t_report/cancel/">Cancel</a>
+           </div>
+        {% endif %}
+       {% else %}
+            Empty
+        {% if user.account.role != 'DOC'%}
+            <div><a href="{% url 't_report' %}">Upload</a></div>
+       {% endif %}
+       {% endif %}
+    </div>
+    <div class="col-sm-1"> {{query.diabetic}} </div>
+    <div class="col-sm-1"> {{query.allergy}} </div>
+    <div class="col-sm-1"> {{query.fiver}}</div>
+    <div class="col-sm-1">{{query.headache}}</div>
+    <div class="col-sm-1">{{query.caff}}</div>
+    <div class="col-sm-1">{{query.body_pain}}</div>
+    <div class="col-sm-2">{{query.b_des}}</div>
+    <div class="col-sm-1">{{query.comment}}</div>
+
+
+</div>
+    {% if user.account.role != 'DOC'%}
+    <div>
+        <button class="btn-btn-primary"style="float:right"><a href="{% url 'health_update' %}">Update</a> </button>
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<h3 style="text-align:center">No data</h3>
+    <button><a href="{% url 'health_create' %}">ADD</a> </button>
+{% endif %}
+
+{% endblock %}

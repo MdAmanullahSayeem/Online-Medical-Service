@@ -1,0 +1,67 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+
+<div class="row"style="background-color:">
+
+    <div class="col-sm-2"> </div>
+    <div class="col-sm-6" style="background-color:Coral;">
+        {% if bus %}
+
+        <div class="row" style="">
+            <div class="col-sm-3" style="text-align:right">
+                Patient<br>
+                Doctor<br>
+                Date<br>
+            </div>
+
+
+             <div class="col-sm-8"style="background-color:;color:;">
+                 {% if request.user.account.role == 'DOC' %}
+                 <a href="/myapp/user/simple/profile/?pk={{bus.patient.pk}}">{{ bus.patient}}</a><br>
+                 {% else %}
+                 {{ bus.patient}}<br>
+                 {% endif %}
+                 {% if request.user.account.role == 'PA' %}
+                 <a href="/myapp/user/simple/profile/?pk={{bus.doctor.pk}}"> {{ bus.doctor}}</a><br>
+                 {% else %}
+                 {{ bus.doctor }}<br>
+                 {% endif %}
+                 {{ bus.date}}<br>
+            </div>
+            <div class="w-25 p-2" style="background-color:Bisque;margin-top:7%;">
+                {% if bus.active == 1 %}
+                Active
+                {% if user.account.role == 'DOC' %}
+                <button> <a href="/myapp/appointment/activation/{{bus.pk}}">Deactive</a> </button>
+                {% endif %}
+                {% else %}
+                Inactive
+                {% if user.account.role == 'DOC' %}
+                <button> <a href="/myapp/appointment/activation/{{bus.pk}}">activate</a> </button>
+                {% endif %}
+                {% endif %}
+
+            </div>
+
+
+        </div>
+        {% endif %}
+
+        <div style="padding-left:70%;padding-top:15%;">
+
+            <a  style="color:DarkBlue;" href="/myapp/appointment/update/?pk={{ bus.pk }}">Update</a>|<a style="color:red;" href="/myapp/appointment/cancel/{{ bus.pk }}">cancel</a>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+<style>
+
+</style>
+{% endblock %}

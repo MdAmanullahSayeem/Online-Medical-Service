@@ -1,0 +1,15 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+
+<div style="margin-top:10px;margin-left:10px; height:400px;width:300px;font-size:22">
+    {% if query %}
+        {% for data in query %}
+            <a href="/myapp/user/simple/profile/?pk={{data.pk}}">{{data.username}}</a>
+        {% endfor %}
+
+    {% else %}
+        <h3 style="color:SkyBlue">No matching data...</h3>
+    {% endif %}
+</div>
+
+{% endblock%}

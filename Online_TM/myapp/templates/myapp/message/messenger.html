@@ -1,0 +1,61 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+<head>
+    <script>
+   window.onload = function () {
+     var objDiv = document.getElementById("only-msg-body");
+     objDiv.scrollTop = objDiv.scrollHeight;
+}
+</script>
+</head>
+<div class="container-flow">
+    <div class="row">
+        <div class="col-sm-8" style="background-color:;"> </div>
+
+        <div class="col-sm-4"id="" style="background-color:ForestGreen;height:350px;">
+
+            <div id="only-msg-body"style="height:65%;overflow:auto">
+                {% for data in bus %}
+
+                    {% if user.pk == data.sender.pk %}
+                        <p style="overflow:auto;text-align:center;margin-left:55%;margin-right:2%;background-color:E6E6FA;">
+                            {% if data.message %}
+                            {{data.message}}
+                            {% elif data.file %}
+                            <a href="/myapp/download{{data.file.url}}/">pdf/file</a>
+                            {% elif data.pic %}
+                            <img src="{{ data.pic.url }}" alt="abc" width="110px" height="90px">
+                            {% endif %}
+                        </p>
+                    {%  elif user.pk == data.receiver.pk %}
+
+                        <p style="overflow:auto;text-align:center;margin-left:2%;margin-right:55%;background-color:#B0C4DE">
+                           {% if data.message %}
+                            {{data.message}}
+                            {% elif data.file %}
+                            <a href="/myapp/download{{data.file.url}}/">pdf/file</a>
+                            {% elif data.pic %}
+                            <a href=""> <img src="{{ data.pic.url }}" alt="abc" width="110px" height="90px"></a>
+                            {% endif %}
+                        </p>
+
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+            <div id="msg-box">
+                {% include "myapp/message/singleform.html" %}
+            </div>
+
+
+
+        </div>
+
+        <div class="col-sm-" style="background-color:;"></div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,63 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+
+{% if query %}
+<div class="row"style="background-color:">
+
+    <div class="col-sm-7"> </div>
+    <div class="col-sm-5" style="background-color:Coral;">
+
+        <div class="row" style="">
+            <div class="col-sm-4" style="background-color:;">
+                Username <br>
+                Email <br>
+                Age <br>
+                Sex <br>
+                Phone <br>
+                Account Type <br>
+            </div>
+
+
+             <div class="col-sm-4"style="background-color:;color:;">
+                 {{ query.account.user.username}}<br>
+                 {{ query.account.user.email }}<br>
+                 {{ query.account.profile.sex }}<br>
+                 {{ query.account.profile.age }}<br>
+                 {{ query.account.profile.phone }}<br>
+                 {{ query.account.role }}<br>
+
+            </div>
+            <div class="col-sm-4">
+{% if query.account.profile.pic %}
+            <a href=""> <img src="{{ query.account.profile.pic.url }}" alt="abc" width="100%" height="80%"></a>
+                {% endif %}
+
+            </div>
+
+
+
+
+        </div>
+        {% if query.account.role == 'DOC' %}
+        <b><a href="/myapp/user/profile/qualification/view/?pk={{query.pk}}">Qualifications</a> </b>
+        {% elif query.account.role == 'PA' %}
+        <b><a href="/myapp/user/profile/health/view/?pk={{query.pk}}">Medical Conditions</a> </b>
+        {% else %}
+        {% endif %}
+
+        </div>
+
+    </div>
+
+
+</div>
+{% else %}
+No data
+{% endif %}
+
+
+
+<style>
+
+</style>
+{% endblock %}

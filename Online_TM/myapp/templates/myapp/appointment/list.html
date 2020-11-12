@@ -1,0 +1,59 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+{% block body %}
+
+    {% if query %}
+<div class="row"id="header" style="">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2" style="color:SkyBlue;text-align:center">Appointment List</div>
+    <div class="col-sm-2" style="color:SkyBlue;text-align:center">Status</div>
+</div>
+<div class="row"id="list-body">
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4">
+        <div class="row" style="height:400px;overflow:auto;">
+
+            <div class="col-sm-8" style="background-color:Beige">
+                {% for list in query %}
+                <a href="/myapp/appointment/view/{{list.pk}}">
+                    {% if list.read == 0 %}
+                    <b>{{list.date}}</b>
+                    {% else%}
+                    {{list.date}}
+                    {% endif %}
+                </a><br>
+                {% endfor %}
+            </div>
+
+            <div class="col-sm-4" style="background-color:#FFEBCD;">
+                {% for list in query %}
+                  {% if list.active == 1 %}
+                    Active
+                  {% else %}
+                    Inactive
+                  {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+    {% else %}
+
+    <div style="color:red;text-align:center;">
+      <h3>List Empty</h3>
+        <a href="{% url 'appointment_create' %}">create new</a>
+    </div>
+
+    {% endif %}
+
+{% endblock %}
+
+
+<style>
+
+</style>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'text.html' %}
+{% block content %}
+{% for data in bus %}
+{% if user == 'data.sender' %}
+<p>
+    {{data.massage}}
+</p>
+{% else %}
+
+<p>
+   {{data.massage}}
+</p>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}

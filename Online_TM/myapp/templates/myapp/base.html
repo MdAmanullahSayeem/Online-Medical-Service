@@ -1,0 +1,243 @@
+ {% load static %}
+ {% load my_tags %}
+ <head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Online Treatment Managing</title>
+  <link href=" {% static 'myapp/vendor/bootstrap/css/bootstrap.min.css' %} " rel="stylesheet">
+  <link href="{% static 'myapp/css/simple-sidebar.css' %}" rel="stylesheet">
+
+</head>
+<body class="body">
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class=" border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading" style="background-color:#BDB76B">OTM </div>
+        <div class="list-group list-group-flush">
+{% if user.is_authenticated %}
+                <li class="nav-item">
+                    <div style="color:OldLace;padding-left:9%;font-size:22">Medical Profile</div>
+                    <div style="font-size:18">
+                        {% if user.account.role == 'PA' %}
+                        <a class="dropdown-item" href="/myapp/user/profile/health/view/?pk={{user.pk}}">Health Condition</a>
+                        {% endif %}
+
+                        {% if user.account.role == 'DOC' %}
+                        <a class="dropdown-item" href="/myapp/user/profile/qualification/view/?pk={{user.pk}}">Qualifications</a>
+                        <a class="dropdown-item" href="{% url 'active_list' %}">Today Patients </a>
+                         {% endif %}
+
+                        <a class="dropdown-item" href="{% url 'appointment_list' %}">Appointments <span class="badge">
+                                {% if   user|appointment  %}
+                                  ({{  user|appointment }})
+                                {% endif %}
+                            </span>
+                        </a>
+
+                         <a class="dropdown-item" href="{% url 'appointment_create' %}">Appointment Create
+
+                        </a>
+
+                        <a class="dropdown-item" href="{% url 'pres_list' %}">Prescriptions View <span class="badge">
+                                {% if   user|prescription  %}
+                                  ({{  user|prescription }})
+                                {% endif %}
+                            </span>
+                        </a>
+                        {% if user.account.role == 'DOC' %}
+                        <a class="dropdown-item" href="{% url 'pres_create' %}">Prescriptions Create</a>
+                         {% endif %}
+
+                    </div>
+{% endif %}
+                    <div class="footer" style="margin-top:70%">
+                        <footer>
+                            <p>Posted by: <b>Amanullah Sayeem</b></p>
+
+                            <p>
+                                Bangladesh, dhaka, 20/17
+                            </p>
+
+                            <p><b>Contact information:</b>
+                                <a href="mailto:amanullahsayeem@gmail.com">amanullahsayeem@gmail.com</a>
+                            </p>
+                        </footer>
+                    </div>
+                </li>
+
+          </div>
+
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#3CB371;font-size:20">Our Specialist <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li>
+                  <a href="#" class="list-group-item list-group-item-action">Child Specialists</a>
+                  <a href="#" class="list-group-item list-group-item-action">Dental Specialists</a>
+                  <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+                  <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+
+              </li>
+            </ul>
+          </li>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0 " id="topbar-link">
+
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+{% if user.is_authenticated %}
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'msg_receive'%}">Massage<span class="badge">
+                 {% if   user|message  %}
+                  ({{  user|message }})
+                  {% endif %}
+              </span></a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Profile
+                </a>
+
+                <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                  <a class="dropdown-item" href="{% url 'logoutview' %}">Logout</a>
+                </div>
+
+            </li>
+{% else %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'loginview' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+              </li>
+{% endif %}
+          </ul>
+        </div>
+      </nav>
+
+
+        <div class="sub_body">
+
+            <div class="row" style="background-color:Beige;height:30px;margin-left:1px;">
+                <div class=" col-sm-5" style="padding-left:0px;">
+                    <form class="form-inline" action="/myapp/user/search/" role="form">
+                        <label > </label>
+                        <input type="text" class="form-control" id="search" name="data" placeholder="Search">
+                        <button class="btn-btn-default" type="submit">Search</button>
+                    </form>
+                </div>
+                <div class=" col-sm-2" style="color:blue;font-size:22">
+                    <span id="clock"></span>
+                </div>
+
+                <div class=" col-sm-5"  id="msg">
+                    {% if messages %}
+                         <ul class="message">
+                             {% for message in messages %}
+                             {% if message_tags %} class="{{message.tags}}" {% endif %}{{ message }}
+                             {% endfor %}
+                         </ul>
+                     {% endif %}
+                </div>
+
+
+
+            </div>
+
+            {% block content %}
+
+            {% endblock %}
+
+        </div>
+
+    <!-- /#page-content-wrapper -->
+
+       </div>
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    setTimeout(function(){
+    if ($('#msg').length>0) {
+    $('#msg').remove()
+    }
+
+    },2000);
+  </script>
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+
+<script>
+        window.onload=function(){getTime();}
+        function getTime(){
+        var today=new Date();
+        var h=today.getHours();
+        var m=today.getMinutes();
+        var s=today.getSeconds();
+        // add a zero in front of numbers<10
+        m=checkTime(m);
+        s=checkTime(s);
+        document.getElementById('clock').innerHTML=h+":"+m+":"+s;
+        setTimeout(function(){getTime()},1000);
+        }
+        //setInterval("getTime()",1000);//another way
+        function checkTime(i){
+        if (i<10){
+          i="0" + i;
+         }
+        return i;
+        }
+</script>
+
+</body>
+<style>
+
+body{
+background-color:SeaShell;
+}
+
+.sub_body{
+height:400px;
+
+
+}
+#sidebar-wrapper{
+background-color:#8FBC8F;
+}
+#topbar-link{
+background-color:#AFEEEE ;
+}
+
+</style>
+</html>

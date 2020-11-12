@@ -1,0 +1,48 @@
+{% extends 'myapp/base.html '%}
+{% block content %}
+<div class="row"style="background-color:">
+
+    <div class="col-sm-2"> </div>
+    <div class="col-sm-6" style="background-color:Coral;">
+        {% if bus %}
+
+        <div class="row" style="">
+            <div class="col-sm-4" style="background-color:;padding-top:5%;padding-bottom:5%;">
+                Doctor<br>
+                Patient<br>
+                Date<br>
+                Age<br>
+                Medications<br>
+            </div>
+
+
+             <div class="col-sm-8"style="background-color:;color:;padding-top:5%;padding-bottom:5%;">
+                 {{ bus.doctor}}<br>
+                 {{ bus.patient}}<br>
+                 {{ bus.date}}<br>
+                 {{ bus.age}}<br>
+                 {{ bus.medications}}<br>
+            </div>
+
+
+        </div>
+        {% endif %}
+
+
+        <div style="padding-left:70%;padding-top:10%;">
+
+            <a  style="color:DarkBlue;" href="/myapp/pdf_view/?pk={{bus.pk}}"> Pdf View</a>|
+            <a  style="color:DarkBlue;" href="/myapp/pdf_download/?pk={{bus.pk}}">Download</a>
+            {% if user.account.role == 'DOC' %}
+            <a  style="color:DarkBlue;" href="/pres/cancel/{{ bus.pk }}">Cancel</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+</style>
+{% endblock %}
